@@ -1,0 +1,22 @@
+apiversion: /api/v1
+server:
+  port : 8081
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+  data:
+    mongodb:
+      database: ibm_cio
+      host: localhost
+      port: 27017
+
+app:
+  security:
+    jwt:
+      keystore-location: keystore.jks
+      keystore-password: password
+      key-alias: jwtsigning
+      private-key-passphrase: password
+
