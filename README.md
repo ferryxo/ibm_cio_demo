@@ -24,7 +24,9 @@ Example of unit tests are included to test the rest endpoints. but because of th
 Unit tests are to be run with 'test' profile to disable the JWT token authentication. 
 
 ### Docker
-Dockerfile & docker-compose files are included but not yet tested
+* install docker and docker compose on your machine
+* docker build -t ferryxo/ibm-demo-backend .
+* docker-compose up
  
 
 
