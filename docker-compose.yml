@@ -1,9 +1,5 @@
-version: "3.8"
+version: "3.3"
 
-networks:
-  default:
-    external:
-      name: backend
 services:
   mydb:
     image: mongo:latest
@@ -11,7 +7,7 @@ services:
     ports:
       - 27017:27017
   ibm-demo-backend:
-    image: ibm-demo-backend-image
+    image: ferryxo/ibm-demo-backend
     container_name: ibm-demo-backend-container
     ports:
       - 8081:8081

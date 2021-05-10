@@ -6,6 +6,7 @@ import com.cio.ibm.colorgroup.models.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -30,13 +31,13 @@ public class FileUtil {
     }
 
     public static void loadData() {
-        String path = "static/input.json";
+        String path = "./input.json";
 
         try {
             if(repository.findAll().isEmpty()) {
                 // create object mapper instance
                 ObjectMapper mapper = new ObjectMapper();
-                File resource = new ClassPathResource(path).getFile();
+                File resource = new FileSystemResource(path).getFile();
                 // convert JSON file to map
                 Map<String, Map<String, String>> map = mapper.readValue(resource, Map.class);
 

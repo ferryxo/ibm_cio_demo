@@ -9,7 +9,7 @@ spring:
   data:
     mongodb:
       database: ibm_cio
-      host: localhost
+      host: mydb
       port: 27017
 
 app:
