@@ -10,9 +10,9 @@ services:
     container_name: mydb
     ports:
       - 27017:27017
-  ibm-demo-image:
-    image: ibm-demo-app-image
-    container_name: ibm-demo-image
+  ibm-demo-backend:
+    image: ibm-demo-backend-image
+    container_name: ibm-demo-backend-container
     ports:
       - 8081:8081
     links:

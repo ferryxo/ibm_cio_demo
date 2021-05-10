@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.cors.CorsConfiguration;
@@ -23,17 +24,25 @@ import java.util.List;
 @Profile("test")
 public class TestWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final PasswordEncoder passwordEncoder;
+
+    public TestWebSecurityConfig(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
                 .configurationSource(request -> {
                     var cors = new CorsConfiguration();
-                    cors.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:3000"));
+                    cors.setAllowedOrigins(List.of("*"));
                     cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
                     cors.setAllowedHeaders(List.of("*"));
                     return cors;
                 })
                 .and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .anyRequest().permitAll();
     }
@@ -44,6 +53,7 @@ public class TestWebSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails user1 = User
                 .withUsername("user")
                 .authorities("USER")
+                .passwordEncoder(passwordEncoder::encode)
                 .password("1234")
                 .build();
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
